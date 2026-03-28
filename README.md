@@ -1,6 +1,10 @@
 # Curated Advisor Specs
 
-Reusable, parameterized [Copilot agent](https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-custom-agents) patterns for documentation knowledge bases — extracted from real projects and designed to be imported into any repository.
+A [spec-driven development](docs/spec-driven-development/README.md) framework for building **knowledge repositories with trusted, grounded AI agents** — where every answer traces back to sources you control.
+
+Standard chatbots hallucinate freely. These specs define a different model: agents that follow strict source hierarchies, detect contradictions against your curated knowledge, and cite their sources — giving you far greater control over what the AI says and why. Each spec captures a battle-tested pattern (grounding rules, wizard flows, research pipelines, documentation architecture) as a parameterized template you can import into any repository.
+
+**The feedback loop:** Use these specs to scaffold a new knowledge repo. As you refine patterns in your project, extract the improvements back into specs here — so every repo in the ecosystem benefits.
 
 ## Documentation
 
@@ -52,9 +56,32 @@ The importer collects your project-specific values (URLs, folder names, agent na
 |---|---|
 | [agent365-management](https://github.com/paulwu/agent365-management) | All 6 specs (reference implementation) |
 
+## How It Works
+
+```
+┌──────────────────────────────────────────────────────────────┐
+│  curated-advisor-specs (this repo)                           │
+│  Parameterized specs + meta-agents                           │
+│                                                              │
+│         ┌──────────┐      ┌──────────┐                       │
+│         │ Import   │      │ Extract  │                       │
+│         │ specs ↓  │      │ back ↑   │                       │
+│         └─────┬────┘      └────┬─────┘                       │
+└───────────────┼────────────────┼─────────────────────────────┘
+                │                │
+       ┌────────▼────────┐  ┌───┴────────────────┐
+       │ Your Knowledge  │  │ Another Knowledge  │
+       │ Repo            │  │ Repo               │
+       │ (grounded       │  │ (refines patterns, │
+       │  agents)        │  │  feeds them back)  │
+       └─────────────────┘  └────────────────────┘
+```
+
+Specs flow **into** projects via `@spec-importer`. Pattern improvements flow **back** via `@spec-exporter`. `@spec-drift` keeps everything in sync.
+
 ## How It Was Built
 
-These specs were extracted from the [agent365-management](https://github.com/paulwu/agent365-management) project, which is a documentation knowledge base for Microsoft Agent 365 / Entra Agent ID. The patterns evolved over iterative development and were generalized into parameterized specs so they can be reused across repositories.
+These specs were extracted from the [agent365-management](https://github.com/paulwu/agent365-management) project — a knowledge base for Microsoft Agent 365 / Entra Agent ID. The patterns (source hierarchies, contradiction detection, wizard flows) evolved through iterative development and were generalized into parameterized specs so any repository can adopt and improve them.
 
 ## License
 
