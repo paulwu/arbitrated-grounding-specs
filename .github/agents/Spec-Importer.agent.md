@@ -14,11 +14,56 @@ You read spec files from a local `specs/` folder (or a path the user specifies),
 
 ## Workflow
 
+### Step 0 — Bootstrap: Download Spec Agents and Spec Files from Spec Repo
+
+Before anything else, ensure the project has the latest spec agents and spec files from the canonical spec repo.
+
+Read the spec repo URL from `.spec-config.yaml` (if it exists) or use the default: `paulwu/curated-advisor-specs`.
+
+```bash
+cat .spec-config.yaml 2>/dev/null | grep spec_repo || echo "USING_DEFAULT"
+```
+
+**Download the three Spec agents** into `.github/agents/` (skip if already present and unchanged):
+
+```bash
+mkdir -p .github/agents
+curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/.github/agents/Spec-Exporter.agent.md" -o .github/agents/Spec-Exporter.agent.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/.github/agents/Spec-Importer.agent.md" -o .github/agents/Spec-Importer.agent.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/.github/agents/Spec-Drift.agent.md" -o .github/agents/Spec-Drift.agent.md
+```
+
+**Download all spec files** into `specs/`:
+
+```bash
+mkdir -p specs
+curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/manifest.yaml" -o specs/manifest.yaml
+curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/grounding-rules.spec.md" -o specs/grounding-rules.spec.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/notes-conventions.spec.md" -o specs/notes-conventions.spec.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/wizard-agent.spec.md" -o specs/wizard-agent.spec.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/research-agent.spec.md" -o specs/research-agent.spec.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/doc-architecture.spec.md" -o specs/doc-architecture.spec.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/specs/readme-structure.spec.md" -o specs/readme-structure.spec.md
+```
+
+Show what was downloaded:
+```
+✅ Bootstrap complete:
+  .github/agents/Spec-Exporter.agent.md
+  .github/agents/Spec-Importer.agent.md
+  .github/agents/Spec-Drift.agent.md
+  specs/manifest.yaml + 6 spec files
+```
+
+If the download fails (no internet, repo not accessible), fall back to local `specs/` folder if it exists, or ask the user to provide the path manually.
+
+---
+
 ### Step 1 — Locate Specs
 
-Check for specs in this order:
-1. User-specified path (if provided in the prompt)
-2. `specs/` folder in the current project
+After bootstrap, specs should be in `specs/`. Check in this order:
+1. `specs/` folder in the current project (populated by Step 0)
+2. User-specified path (if provided in the prompt)
 3. Ask the user for the path to the spec files
 
 Read `manifest.yaml` to see which specs are available.
