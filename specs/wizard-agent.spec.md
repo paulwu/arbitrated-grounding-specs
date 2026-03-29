@@ -1,7 +1,7 @@
 ---
 spec: wizard-agent
 version: "1.0.0"
-description: Interactive wizard agent pattern with prerequisite checks, tenant auto-detection, autopilot warning, and command generation
+description: "Pattern for interactive agents that require user input and may invoke Entra ID sign-in, PowerShell scripts, or Azure CLI commands. Includes prerequisite checks (PowerShell availability, az account show tenant detection, Entra role and Graph permission verification), autopilot-mode warning, input collection via ask_user, and command generation (never direct execution — scripts use browser-based device code auth). Examples: BluePrint-Creator (guides users through creating an Entra Agent ID blueprint via Create-Blueprint.ps1)."
 extracted_from: paulwu/agent365-management
 requires: []
 variables:
