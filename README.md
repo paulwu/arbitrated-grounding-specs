@@ -28,10 +28,22 @@ Standard chatbots hallucinate freely. These specs define a different model: agen
 
 ### 1. Copy the meta-agents into your project
 
+**Option A — From a local clone of this repo:**
+
 ```bash
 mkdir -p your-project/.github/agents
 cp .github/agents/Spec-Importer.agent.md your-project/.github/agents/
 cp .github/agents/Spec-Drift.agent.md    your-project/.github/agents/
+```
+
+**Option B — Download from GitHub (no clone needed):**
+
+Run this from your project's root directory:
+
+```bash
+mkdir -p .github/agents
+curl -sL https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/.github/agents/Spec-Importer.agent.md -o .github/agents/Spec-Importer.agent.md
+curl -sL https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/.github/agents/Spec-Drift.agent.md    -o .github/agents/Spec-Drift.agent.md
 ```
 
 > **Note:** You only need to copy the agents manually the first time. After that, `@spec-importer` will automatically sync the latest agent files from the spec repo on every import.
