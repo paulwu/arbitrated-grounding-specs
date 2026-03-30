@@ -1,11 +1,12 @@
 ---
 spec: research-agent
-version: "1.0.0"
+version: "2.0.0"
 description: Research agent pattern with live doc fetching, note cross-referencing, contradiction detection, and response capture
 extracted_from: paulwu/agent365-management
 requires:
   - grounding-rules
-  - notes-conventions
+  - research-conventions
+  - response-capture
 variables:
   - name: RESEARCH_AGENT_NAME
     description: "Name of the research agent"
@@ -26,20 +27,12 @@ variables:
   - name: CACHED_BASELINE_FILE
     description: "Path to the cached baseline note file"
     required: true
-    example: "notes/Microsoft-Learn-Entra-AgentID.md"
+    example: "research/Microsoft-Learn-Entra-AgentID.md"
   - name: SECONDARY_NOTE_FILES
     description: "Comma-separated list of secondary note filenames"
     required: false
     default: ""
     example: "ChatGPT.md, Gemini.md, Researcher.md"
-  - name: RESPONSE_CAPTURE_FOLDER
-    description: "Folder where responses are saved"
-    required: false
-    default: "copilot-playground"
-  - name: RESPONSE_TIMEZONE
-    description: "Timezone for response file timestamps"
-    required: false
-    default: "America/Los_Angeles"
   - name: SITE_INDEX_URLS
     description: "Markdown table of documentation page URLs the agent can fetch"
     required: false
@@ -60,36 +53,10 @@ The research agent follows this workflow for every question:
 
 1. **Fetch the relevant page(s)** from the primary source using `web_fetch` or `web_search`
 2. **Cross-reference** with the cached baseline in `{{CACHED_BASELINE_FILE}}`
-3. **Check other note files** in `notes/` ({{SECONDARY_NOTE_FILES}}) for additional context
+3. **Check other note files** in `{{KNOWLEDGE_FOLDER}}/` ({{SECONDARY_NOTE_FILES}}) for additional context
 4. **Flag contradictions** between sources (see grounding-rules spec)
 5. **Reference repository scripts** in `{{SCRIPTS_FOLDER}}/` when a workflow can be expedited with existing automation
 6. **Save every response** to `{{RESPONSE_CAPTURE_FOLDER}}/`
-
-### Response Capture
-
-After composing every response, save to a markdown file:
-
-**File naming:** `response-YY-MM-DD-HH-MM-SS.md` in `{{RESPONSE_TIMEZONE}}`
-
-**File structure:**
-
-```markdown
-# Prompt
-
-<the user's original question, quoted verbatim>
-
-# Response
-
-<full response including contradiction warnings and tables>
-
-# Sources
-
-<list of every source consulted>
-```
-
-**Sources format:**
-- Notes: `Author | notes/<filename>`
-- Web: the full URL
 
 ### Script References
 

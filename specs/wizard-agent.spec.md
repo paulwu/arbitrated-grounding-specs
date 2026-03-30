@@ -1,7 +1,7 @@
 ---
 spec: wizard-agent
-version: "1.0.0"
-description: "Pattern for interactive agents that require user input and may invoke Entra ID sign-in, PowerShell scripts, or Azure CLI commands. Includes prerequisite checks (PowerShell availability, az account show tenant detection, Entra role and Graph permission verification), autopilot-mode warning, input collection via ask_user, and command generation (never direct execution — scripts use browser-based device code auth). Examples: BluePrint-Creator (guides users through creating an Entra Agent ID blueprint via Create-Blueprint.ps1)."
+version: "1.1.0"
+description: Interactive wizard agent pattern with prerequisite checks, tenant auto-detection, autopilot warning, and command generation
 extracted_from: paulwu/agent365-management
 requires: []
 variables:
@@ -73,7 +73,7 @@ Step 3: Verify required Entra role
 Step 4: Verify app registration and Graph permissions
 Step N: Collect input fields (wizard-specific)
 Step N+1: Generate input file (if applicable)
-Step N+2: Provide the run command (do NOT execute — requires browser auth)
+Step N+2: Execute the script OR provide a ready-to-paste command
 Step N+3: Explain expected output and next steps
 ```
 
@@ -112,23 +112,37 @@ Explain required Graph permissions: {{REQUIRED_GRAPH_PERMISSIONS}}
 
 Guide user through creating an app registration if none exists.
 
-### Command Generation (NOT Execution)
+### Script Execution or Command Handoff
 
-Because scripts require interactive browser authentication (device code flow via `Connect-MgGraph`), the wizard **must not attempt to execute the script**. Instead:
+After collecting all parameters and generating any input files (e.g., `{{INPUT_JSON_FILE}}`), the wizard either **executes the script** or **provides a ready-to-paste command**, depending on the agent's design:
 
-1. Collect all parameters
-2. Generate any input files (e.g., `{{INPUT_JSON_FILE}}`)
-3. Display the exact command the user should run in their terminal:
+#### Option A — Execute (default)
+
+Run the script directly after confirming with the user. Use async mode so the user can complete interactive browser authentication (device code flow via `Connect-MgGraph`) if required:
+
+1. Summarize the command and ask: "Ready to execute? (yes/no)"
+2. Run the script using the collected parameters
+3. Monitor the output and help troubleshoot errors
+
+#### Option B — Command handoff
+
+If the wizard cannot handle the script's interactive auth flow (e.g., the auth mechanism is incompatible with the agent's runtime), provide the command instead:
+
+1. Display the exact command the user should run in their terminal:
 
 ```bash
 cd <repo-root>
 pwsh -File ./{{TARGET_SCRIPT}} -TenantId "<tenant>" -ClientId "<client-id>"
 ```
 
+2. Explain expected output and next steps
+
+Each wizard agent should document which option it uses in its agent file.
+
 ### Key Rules
 
 - **Never skip steps** — complete each before moving to the next
-- **Do NOT execute scripts that need browser auth** — provide the command instead
+- **Confirm before executing** — always ask the user before running the script
 - **Validate all inputs** — check GUID format, HTTPS URLs, non-empty strings
 - **Use `ask_user`** for collecting field values
 - **Do not store secrets in files** — client secrets go on the command line only

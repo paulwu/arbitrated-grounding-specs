@@ -30,15 +30,47 @@ For each imported spec, use the variable values from `.spec-config.yaml` to gene
 
 ### Step 4 — Compare Against Current State
 
-For each generated file, compare it against the actual file in the project:
+For each generated file, compare it against the actual file in the project. The comparison method depends on the `drift_mode` set for each spec in `.spec-config.yaml`:
 
-1. Read the actual file
-2. Compare key sections (not byte-for-byte — compare the pattern-relevant parts)
-3. Classify differences as:
-   - **Drift** — the file has changed from what the spec would generate
-   - **Override** — listed in `.spec-config.yaml` overrides (intentional)
-   - **Addition** — project has added content beyond what the spec covers (fine)
-   - **Missing** — a file the spec expects doesn't exist
+#### Drift Modes
+
+| Mode | How It Compares | Best For |
+|---|---|---|
+| `behavioral` | Checks that **required elements** exist (keywords, concepts, references) regardless of exact wording. Project-specific additions are allowed. | Specs with "Requirements" sections (grounding-rules, doc-architecture) |
+| `structural` | Checks that **required sections and steps** exist in the correct order. Wording within sections can vary. | Agent specs with step-based workflows (wizard-agent, research-agent) |
+| `strict` | Compares **template text** after variable substitution. Any wording change is flagged. | Specs where exact phrasing matters (default if no drift_mode set) |
+
+#### drift_mode: behavioral
+
+When a spec's "Requirements" section lists numbered required elements (e.g., "MUST contain: 1. A primary source declaration, 2. A cached baseline reference..."):
+
+1. For each required element, check that the actual file contains content matching that requirement
+2. Match by semantic presence (keywords, variable values, concept), not exact text
+3. **Do NOT flag** additional content, reworded phrasing, or project-specific enhancements
+4. **DO flag** if a required element is completely missing
+
+#### drift_mode: structural
+
+1. Check that required sections/headings exist in the file
+2. Check that required steps appear in order
+3. **Do NOT flag** additional steps, extra content within sections, or wording differences
+4. **DO flag** missing sections, missing steps, or reordered required steps
+
+#### drift_mode: strict (default)
+
+1. Generate the expected text by substituting variables into the spec template
+2. Compare against the actual file section by section
+3. **Flag** any wording differences as drift
+4. This is the legacy behavior and remains the default
+
+#### Classify Differences
+
+Regardless of drift_mode, classify all differences as:
+
+- **Drift** — the file is missing required elements or has changed from what the spec defines
+- **Override** — listed in `.spec-config.yaml` overrides (intentional, skip)
+- **Addition** — project has added content beyond what the spec covers (fine, not drift)
+- **Missing** — a file the spec expects doesn't exist
 
 ### Step 5 — Check Spec Version
 
@@ -65,8 +97,8 @@ grounding-rules:
        Actual:   "The Microsoft Learn version is always correct."
        → Minor wording change. Update with @spec-importer or add to overrides.
 
-notes-conventions:
-  .github/agents/Notes-Author.agent.md
+research-conventions:
+  .github/agents/Research-Curator.agent.md
     ✅ Frontmatter rules — matches spec
     ✅ Priority scale — matches spec
 

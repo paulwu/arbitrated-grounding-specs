@@ -1,35 +1,54 @@
-name: copilot-project-specs
-version: "1.0.0"
+name: curated-advisor-specs
+version: "2.0.0"
 description: Reusable Copilot agent patterns for documentation knowledge bases
 extracted_from: paulwu/agent365-management
 
 specs:
+  # --- Tier 1: Core Specs (universal patterns) ---
+
   - id: grounding-rules
     file: specs/grounding-rules.spec.md
-    version: "1.0.0"
+    version: "2.0.0"
     description: Source priority hierarchy, contradiction detection, and citation format
 
-  - id: notes-conventions
-    file: specs/notes-conventions.spec.md
-    version: "1.0.0"
-    description: YAML frontmatter format and priority scale for research notes
-
-  - id: wizard-agent
-    file: specs/wizard-agent.spec.md
-    version: "1.0.0"
-    description: Interactive wizard agent pattern with prerequisite checks and command generation
-
-  - id: research-agent
-    file: specs/research-agent.spec.md
-    version: "1.0.0"
-    description: Research agent pattern with grounding, contradiction detection, and response capture
+  - id: research-conventions
+    file: specs/research-conventions.spec.md
+    version: "2.0.0"
+    description: YAML frontmatter format and priority scale for knowledge notes
 
   - id: doc-architecture
     file: specs/doc-architecture.spec.md
-    version: "1.0.0"
-    description: Three-layer notes → docs → scripts documentation architecture
+    version: "2.0.0"
+    description: Three-layer knowledge → docs → scripts documentation architecture
 
   - id: readme-structure
     file: specs/readme-structure.spec.md
     version: "1.0.0"
     description: README structure with TOC, collapsible folder tree, and agent table
+
+  - id: response-capture
+    file: specs/response-capture.spec.md
+    version: "2.0.0"
+    description: Response capture convention for saving agent responses to timestamped markdown files
+
+  # --- Tier 2: Role Specs (agent behavior patterns) ---
+
+  - id: research-agent
+    file: specs/research-agent.spec.md
+    version: "2.0.0"
+    description: Research agent pattern with live doc fetching, cross-referencing, and contradiction detection
+
+  - id: author-agent
+    file: specs/author-agent.spec.md
+    version: "2.0.0"
+    description: Knowledge authoring agent pattern for creating and maintaining structured content
+
+  - id: advisor-agent
+    file: specs/advisor-agent.spec.md
+    version: "2.0.0"
+    description: Domain advisor agent pattern for answering questions grounded on a structured knowledge base
+
+  - id: wizard-agent
+    file: specs/wizard-agent.spec.md
+    version: "1.1.0"
+    description: Interactive wizard agent pattern with prerequisite checks, script execution or command handoff

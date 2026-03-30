@@ -1,27 +1,27 @@
 ---
-spec: notes-conventions
-version: "1.0.0"
+spec: research-conventions
+version: "2.0.0"
 description: YAML frontmatter format, priority scale, and authoring rules for research notes
 extracted_from: paulwu/agent365-management
 requires: []
 variables:
-  - name: NOTES_FOLDER
-    description: "Folder containing research notes"
+  - name: KNOWLEDGE_FOLDER
+    description: "Folder containing knowledge notes"
     required: false
-    default: "notes"
-  - name: NOTES_AGENT_NAME
-    description: "Name of the notes authoring agent"
+    default: "research"
+  - name: RESEARCH_CURATOR_NAME
+    description: "Name of the research curation agent"
     required: false
-    default: "Notes Author"
+    default: "Research Curator"
 ---
 
-# Notes Conventions Spec
+# Research Conventions Spec
 
 ## Pattern
 
 ### Required YAML Frontmatter
 
-Every note file in `{{NOTES_FOLDER}}/` **must** begin with a YAML frontmatter block:
+Every note file in `{{KNOWLEDGE_FOLDER}}/` **must** begin with a YAML frontmatter block:
 
 ```yaml
 ---
@@ -42,7 +42,7 @@ Priority: <integer, 1 = highest importance, higher = lower importance>
 
 ### Rules
 
-- **Every note must have frontmatter** — the `@{{NOTES_AGENT_NAME}}` agent enforces this
+- **Every note must have frontmatter** — the `@{{RESEARCH_CURATOR_NAME}}` agent enforces this
 - **Author field** — identifies who or what produced the content (human name or AI name)
 - **Priority field** — determines which note wins when two sources conflict
 - **Lower number = higher authority** — Priority 1 beats Priority 4
@@ -51,7 +51,7 @@ Priority: <integer, 1 = highest importance, higher = lower importance>
 
 ### Notes Agent Template
 
-The `@{{NOTES_AGENT_NAME}}` agent is responsible for:
+The `@{{RESEARCH_CURATOR_NAME}}` agent is responsible for:
 
 1. Creating new notes with proper frontmatter
 2. Validating existing notes have the required fields
