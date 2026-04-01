@@ -8,11 +8,11 @@ variables:
   - name: KNOWLEDGE_FOLDER
     description: "Folder containing knowledge notes"
     required: false
-    default: "research"
-  - name: RESEARCH_CURATOR_NAME
-    description: "Name of the research curation agent"
+    default: "grounding"
+  - name: CURATOR_AGENT_NAME
+    description: "Name of the curation agent"
     required: false
-    default: "Research Curator"
+    default: "Entra Curator"
 ---
 
 # Research Conventions Spec
@@ -42,7 +42,7 @@ Priority: <integer, 1 = highest importance, higher = lower importance>
 
 ### Rules
 
-- **Every note must have frontmatter** — the `@{{RESEARCH_CURATOR_NAME}}` agent enforces this
+- **Every note must have frontmatter** — the `@{{CURATOR_AGENT_NAME}}` agent enforces this
 - **Author field** — identifies who or what produced the content (human name or AI name)
 - **Priority field** — determines which note wins when two sources conflict
 - **Lower number = higher authority** — Priority 1 beats Priority 4
@@ -51,7 +51,7 @@ Priority: <integer, 1 = highest importance, higher = lower importance>
 
 ### Notes Agent Template
 
-The `@{{RESEARCH_CURATOR_NAME}}` agent is responsible for:
+The `@{{CURATOR_AGENT_NAME}}` agent is responsible for:
 
 1. Creating new notes with proper frontmatter
 2. Validating existing notes have the required fields

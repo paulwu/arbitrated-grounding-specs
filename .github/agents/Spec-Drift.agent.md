@@ -98,7 +98,7 @@ grounding-rules:
        → Minor wording change. Update with @spec-importer or add to overrides.
 
 research-conventions:
-  .github/agents/Research-Curator.agent.md
+  .github/agents/Entra-Curator.agent.md
     ✅ Frontmatter rules — matches spec
     ✅ Priority scale — matches spec
 

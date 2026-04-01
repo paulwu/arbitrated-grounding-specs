@@ -9,7 +9,7 @@ variables:
   - name: AUTHOR_AGENT_NAME
     description: "Name of the authoring agent"
     required: true
-    example: "Research Curator"
+    example: "Entra Curator"
   - name: AUTHOR_AGENT_DESCRIPTION
     description: "One-line description of the authoring agent"
     required: true
@@ -17,7 +17,7 @@ variables:
   - name: KNOWLEDGE_FOLDER
     description: "Folder containing knowledge notes"
     required: false
-    default: "research"
+    default: "grounding"
   - name: CONTENT_TEMPLATE_PATH
     description: "Path to a domain-specific content template file that defines mandatory sections for authored content. Leave empty if content is free-form."
     required: false

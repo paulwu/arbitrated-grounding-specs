@@ -8,7 +8,7 @@ variables:
   - name: KNOWLEDGE_FOLDER
     description: "Folder for knowledge notes and cached documentation"
     required: false
-    default: "research"
+    default: "grounding"
   - name: SYNTHESIZED_DOCS_FOLDER
     description: "Folder for synthesized topic guides"
     required: false

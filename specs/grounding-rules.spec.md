@@ -16,7 +16,7 @@ variables:
   - name: CACHED_BASELINE_FILE
     description: "Path to the cached baseline note file"
     required: true
-    example: "research/Microsoft-Learn-Entra-AgentID.md"
+    example: "grounding/Microsoft-Learn-Entra-AgentID.md"
   - name: SECONDARY_NOTE_FILES
     description: "Comma-separated list of secondary research note filenames"
     required: false
@@ -25,7 +25,7 @@ variables:
   - name: KNOWLEDGE_FOLDER
     description: "Folder containing knowledge notes (research, cached docs, etc.)"
     required: false
-    default: "research"
+    default: "grounding"
   - name: DOCS_FOLDER
     description: "Folder containing generated documentation"
     required: false
@@ -53,7 +53,7 @@ When information from a note in `{{KNOWLEDGE_FOLDER}}/` conflicts with live or c
 2. **List every conflicting source** — include the note's file path, Author (from frontmatter), and Priority alongside the {{PRIMARY_SOURCE_NAME}} page URL
 3. **Prefer the {{PRIMARY_SOURCE_NAME}} version** as authoritative
 4. Still show the disagreeing note's content so the user can decide whether to update it
-5. Remind the user they can correct the note using `@Research-Curator`
+5. Remind the user they can correct the note using `@Entra-Curator`
 
 ### Contradiction Output Template
 
@@ -65,7 +65,7 @@ When information from a note in `{{KNOWLEDGE_FOLDER}}/` conflicts with live or c
 | {{PRIMARY_SOURCE_NAME}} ([Page Title](url)) | <what the primary source says> | — | — |
 | `{{KNOWLEDGE_FOLDER}}/<file>.md` | <what the note says> | <Author from frontmatter> | <Priority> |
 
-**The {{PRIMARY_SOURCE_NAME}} version is authoritative.** If the note is outdated, you can update it with `@Research-Curator`.
+**The {{PRIMARY_SOURCE_NAME}} version is authoritative.** If the note is outdated, you can update it with `@Entra-Curator`.
 ```
 
 ### Priority-Based Conflict Resolution

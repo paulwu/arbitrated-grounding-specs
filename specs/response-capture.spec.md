@@ -62,7 +62,7 @@ The saved file must contain three sections:
 
 ### Sources Format
 
-- **Knowledge notes**: `Author | {{KNOWLEDGE_FOLDER}}/<filename>` (e.g., `Microsoft Learn | research/Microsoft-Learn-Entra-AgentID.md`)
+- **Knowledge notes**: `Author | {{KNOWLEDGE_FOLDER}}/<filename>` (e.g., `Microsoft Learn | grounding/Microsoft-Learn-Entra-AgentID.md`)
 - **Web / live docs**: the full URL (e.g., `https://learn.microsoft.com/en-us/entra/agent-id/...`)
 
 ### Requirements for copilot-instructions.md

@@ -27,7 +27,7 @@ variables:
   - name: CACHED_BASELINE_FILE
     description: "Path to the cached baseline note file"
     required: true
-    example: "research/Microsoft-Learn-Entra-AgentID.md"
+    example: "grounding/Microsoft-Learn-Entra-AgentID.md"
   - name: SECONDARY_NOTE_FILES
     description: "Comma-separated list of secondary note filenames"
     required: false

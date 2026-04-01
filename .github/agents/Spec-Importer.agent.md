@@ -117,7 +117,7 @@ Based on the selected specs, generate or update:
 | Spec | Generated File(s) |
 |---|---|
 | `grounding-rules` | `.github/copilot-instructions.md` (canonical sources section) |
-| `research-conventions` | `.github/agents/Research-Curator.agent.md` scaffold |
+| `research-conventions` | `.github/agents/Entra-Curator.agent.md` scaffold |
 | `research-agent` | `.github/agents/<name>.agent.md` scaffold |
 | `wizard-agent` | `.github/agents/<name>.agent.md` scaffold |
 | `doc-architecture` | `.github/copilot-instructions.md` (architecture section), create `notes/`, `docs/` folders |
@@ -211,7 +211,7 @@ variables:
 
 Files created/updated:
   ✅ .github/copilot-instructions.md
-  ✅ .github/agents/Research-Curator.agent.md
+  ✅ .github/agents/Entra-Curator.agent.md
   ✅ .github/agents/Spec-Importer.agent.md  ← synced from spec repo
   ✅ .github/agents/Spec-Drift.agent.md     ← synced from spec repo
   ✅ README.md

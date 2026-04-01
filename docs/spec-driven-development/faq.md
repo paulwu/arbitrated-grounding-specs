@@ -122,7 +122,7 @@ Depending on which specs are imported:
 | Spec | Files Generated/Updated |
 |---|---|
 | `grounding-rules` | `.github/copilot-instructions.md` (canonical sources section) |
-| `research-conventions` | `.github/agents/Research-Curator.agent.md` |
+| `research-conventions` | `.github/agents/Entra-Curator.agent.md` |
 | `research-agent` | `.github/agents/<ResearchAgent>.agent.md` |
 | `wizard-agent` | `.github/agents/<WizardAgent>.agent.md` (template) |
 | `doc-architecture` | `.github/copilot-instructions.md` (architecture section), `notes/`, `docs/` folders |
