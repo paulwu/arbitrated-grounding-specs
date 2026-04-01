@@ -1,4 +1,4 @@
-# Copilot Instructions — curated-advisor-specs
+# Copilot Instructions — arbitrated-grounding-specs
 
 ## Architecture
 

@@ -1,4 +1,4 @@
-# Curated Advisor Specs
+# Arbitrated Grounding Specs
 
 A [spec-driven development](docs/spec-driven-development/README.md) framework that implements the **Arbitrated Grounding** pattern as parameterized, importable specs — so any repository can adopt conflict-resolving, source-ranked AI agents without starting from scratch.
 
@@ -80,8 +80,8 @@ Run this from your project's root directory:
 
 ```bash
 mkdir -p .github/agents
-curl -sL https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/.github/agents/Spec-Importer.agent.md -o .github/agents/Spec-Importer.agent.md
-curl -sL https://raw.githubusercontent.com/paulwu/curated-advisor-specs/main/.github/agents/Spec-Drift.agent.md    -o .github/agents/Spec-Drift.agent.md
+curl -sL https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/.github/agents/Spec-Importer.agent.md -o .github/agents/Spec-Importer.agent.md
+curl -sL https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/.github/agents/Spec-Drift.agent.md    -o .github/agents/Spec-Drift.agent.md
 ```
 
 > **Note:** You only need to copy the agents manually the first time. After that, `@spec-importer` will automatically sync the latest agent files from the spec repo on every import.
@@ -97,7 +97,7 @@ The importer auto-downloads specs from GitHub — no local clone needed:
 If the agent can't reach GitHub, point it to a local clone instead:
 
 ```
-@spec-importer Import grounding-rules and research-agent specs from ~/curated-advisor-specs/specs/
+@spec-importer Import grounding-rules and research-agent specs from ~/arbitrated-grounding-specs/specs/
 ```
 
 The importer collects your project-specific values (URLs, folder names, agent names) and generates the corresponding files — including a lightweight `docs/spec-driven-development.md` guide that links back to the full documentation here.
@@ -118,7 +118,7 @@ The importer collects your project-specific values (URLs, folder names, agent na
 
 ```
 ┌──────────────────────────────────────────────────────────────┐
-│  curated-advisor-specs (this repo)                           │
+│  arbitrated-grounding-specs (this repo)                      │
 │  Parameterized specs + meta-agents                           │
 │                                                              │
 │         ┌──────────┐      ┌──────────┐                       │

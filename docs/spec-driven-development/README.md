@@ -10,7 +10,7 @@ This project uses a set of reusable patterns — grounding rules, wizard flows, 
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                    copilot-project-specs/                    │
+│                    arbitrated-grounding-specs/                    │
 │                    (dedicated spec repo)                     │
 │                                                             │
 │  specs/                                                     │
@@ -66,18 +66,18 @@ This project uses a set of reusable patterns — grounding rules, wizard flows, 
 
 ```bash
 # 1. Copy the meta-agents into your project
-cp copilot-project-specs/.github/agents/Spec-Importer.agent.md \
+cp arbitrated-grounding-specs/.github/agents/Spec-Importer.agent.md \
    your-project/.github/agents/
 
 # 2. In Copilot Chat (interactive mode):
-@spec-importer Import grounding-rules and research-agent specs from ~/copilot-project-specs/specs/
+@spec-importer Import grounding-rules and research-agent specs from ~/arbitrated-grounding-specs/specs/
 ```
 
 ### Exporting patterns from a project
 
 ```bash
 # 1. Copy the exporter agent into your project
-cp copilot-project-specs/.github/agents/Spec-Exporter.agent.md \
+cp arbitrated-grounding-specs/.github/agents/Spec-Exporter.agent.md \
    your-project/.github/agents/
 
 # 2. In Copilot Chat:
@@ -87,7 +87,7 @@ cp copilot-project-specs/.github/agents/Spec-Exporter.agent.md \
 ### Checking for drift
 
 ```
-@spec-drift Compare this project against the specs in ~/copilot-project-specs/specs/
+@spec-drift Compare this project against the specs in ~/arbitrated-grounding-specs/specs/
 ```
 
 ## Further Reading

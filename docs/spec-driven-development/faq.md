@@ -8,7 +8,7 @@ A spec is a parameterized Markdown file that captures a reusable pattern — lik
 
 ### Where do the specs live?
 
-Specs live in their own repository (`copilot-project-specs`). Each project that uses specs imports only the ones it needs. The spec repo also contains the three meta-agents (`@spec-exporter`, `@spec-importer`, `@spec-drift`).
+Specs live in their own repository (`arbitrated-grounding-specs`). Each project that uses specs imports only the ones it needs. The spec repo also contains the three meta-agents (`@spec-exporter`, `@spec-importer`, `@spec-drift`).
 
 ### Will the spec repo be documented in this project?
 
@@ -52,13 +52,13 @@ Three steps:
 
 1. **Copy the meta-agents** into your project:
    ```bash
-   cp copilot-project-specs/.github/agents/Spec-Importer.agent.md \
+   cp arbitrated-grounding-specs/.github/agents/Spec-Importer.agent.md \
       your-project/.github/agents/
    ```
 
 2. **Create a `.spec-config.yaml`** in your project root listing which specs to import and your project-specific variable values:
    ```yaml
-   spec_repo: paulwu/copilot-project-specs
+   spec_repo: paulwu/arbitrated-grounding-specs
    spec_version: "1.0.0"
    imports:
      - grounding-rules
@@ -70,7 +70,7 @@ Three steps:
 
 3. **Run `@spec-importer`** in Copilot Chat (interactive mode):
    ```
-   @spec-importer Import specs from ~/copilot-project-specs/specs/ using .spec-config.yaml
+   @spec-importer Import specs from ~/arbitrated-grounding-specs/specs/ using .spec-config.yaml
    ```
    The importer generates `.github/copilot-instructions.md`, agent files, README sections, and a lightweight `docs/spec-driven-development.md` guide with a link back to the full documentation.
 
@@ -95,7 +95,7 @@ The fastest path:
 
 ```bash
 # Use the spec repo as a GitHub template
-gh repo create my-new-project --template paulwu/copilot-project-specs
+gh repo create my-new-project --template paulwu/arbitrated-grounding-specs
 cd my-new-project
 
 # Edit .spec-config.yaml with your project-specific values

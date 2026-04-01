@@ -69,7 +69,7 @@ Each variable in the `variables` array has:
 The spec repo root contains a `manifest.yaml` that indexes all available specs:
 
 ```yaml
-name: copilot-project-specs
+name: arbitrated-grounding-specs
 version: "2.0.0"
 description: Reusable Copilot agent patterns for documentation knowledge bases
 
@@ -125,7 +125,7 @@ specs:
 Each project that imports specs has a `.spec-config.yaml` in its root:
 
 ```yaml
-spec_repo: paulwu/copilot-project-specs
+spec_repo: paulwu/arbitrated-grounding-specs
 spec_version: "2.0.0"
 imported_at: "2026-03-28T06:00:00Z"
 
