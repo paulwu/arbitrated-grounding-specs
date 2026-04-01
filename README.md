@@ -52,15 +52,15 @@ The pattern ensures that AI-generated content is not only "grounded" in data but
 
 | Spec | What It Captures |
 |---|---|
-| [`grounding-rules`](specs/grounding-rules.spec.md) | Source priority hierarchy, contradiction detection, citation format |
-| [`research-conventions`](specs/research-conventions.spec.md) | YAML frontmatter (`Author`, `Priority`), priority scale (1-5+) |
-| [`wizard-agent`](specs/wizard-agent.spec.md) | Prerequisite checks, `az account show` detection, autopilot warning, command generation |
-| [`research-agent`](specs/research-agent.spec.md) | Fetch live docs, cross-reference cached notes, flag contradictions, save response |
-| [`doc-architecture`](specs/doc-architecture.spec.md) | `notes/` → `docs/` → `scripts/` three-layer architecture |
-| [`readme-structure`](specs/readme-structure.spec.md) | README with TOC, collapsible folder tree, agent table, prerequisite warnings |
-| [`response-capture`](specs/response-capture.spec.md) | Response capture conventions — folder layout, filename format, metadata headers |
-| [`author-agent`](specs/author-agent.spec.md) | Research-curator agent pattern — enforces frontmatter, priority headers, naming |
-| [`advisor-agent`](specs/advisor-agent.spec.md) | Advisor agent pattern — grounded Q&A with source-cited synthesis |
+| [`grounding-rules`](specs/grounding-rules.spec.md) | Source priority hierarchy, contradiction detection, and citation format |
+| [`research-conventions`](specs/research-conventions.spec.md) | YAML frontmatter format and priority scale for knowledge notes |
+| [`wizard-agent`](specs/wizard-agent.spec.md) | Interactive wizard with prerequisite checks, script execution or command handoff |
+| [`research-agent`](specs/research-agent.spec.md) | Research agent with live doc fetching, cross-referencing, and contradiction detection |
+| [`doc-architecture`](specs/doc-architecture.spec.md) | Three-layer knowledge → docs → scripts documentation architecture |
+| [`readme-structure`](specs/readme-structure.spec.md) | README structure with TOC, collapsible folder tree, and agent table |
+| [`response-capture`](specs/response-capture.spec.md) | Response capture convention for saving agent responses to timestamped markdown files |
+| [`author-agent`](specs/author-agent.spec.md) | Knowledge authoring agent pattern for creating and maintaining structured content |
+| [`advisor-agent`](specs/advisor-agent.spec.md) | Domain advisor agent pattern for answering questions grounded on a structured knowledge base |
 
 ## Quick Start
 

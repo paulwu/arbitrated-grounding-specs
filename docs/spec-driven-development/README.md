@@ -50,15 +50,15 @@ This project uses a set of reusable patterns — grounding rules, wizard flows, 
 
 | Spec | What It Captures |
 |---|---|
-| [grounding-rules.spec.md](./spec-format.md#grounding-rules) | Source priority hierarchy, contradiction detection, citation format |
-| [research-conventions.spec.md](./spec-format.md#research-conventions) | YAML frontmatter (`Author`, `Priority`), priority scale (1-5+) |
-| [wizard-agent.spec.md](./spec-format.md#wizard-agent) | Prerequisite checks, `az account show` detection, autopilot warning, command generation |
-| [research-agent.spec.md](./spec-format.md#research-agent) | Fetch live docs, cross-reference cached notes, flag contradictions, save response |
-| [doc-architecture.spec.md](./spec-format.md#doc-architecture) | `notes/` → `docs/` → `scripts/` three-layer architecture |
-| [readme-structure.spec.md](./spec-format.md#readme-structure) | TOC, collapsible sections, agent table, prerequisite warnings |
-| [response-capture.spec.md](./spec-format.md#response-capture) | Response capture conventions — folder layout, filename format, metadata headers |
-| [author-agent.spec.md](./spec-format.md#author-agent) | Research-curator agent pattern — enforces frontmatter, priority headers, naming |
-| [advisor-agent.spec.md](./spec-format.md#advisor-agent) | Advisor agent pattern — grounded Q&A with source-cited synthesis |
+| [grounding-rules.spec.md](../../specs/grounding-rules.spec.md) | Source priority hierarchy, contradiction detection, and citation format |
+| [research-conventions.spec.md](../../specs/research-conventions.spec.md) | YAML frontmatter format and priority scale for knowledge notes |
+| [wizard-agent.spec.md](../../specs/wizard-agent.spec.md) | Interactive wizard with prerequisite checks, script execution or command handoff |
+| [research-agent.spec.md](../../specs/research-agent.spec.md) | Research agent with live doc fetching, cross-referencing, and contradiction detection |
+| [doc-architecture.spec.md](../../specs/doc-architecture.spec.md) | Three-layer knowledge → docs → scripts documentation architecture |
+| [readme-structure.spec.md](../../specs/readme-structure.spec.md) | README structure with TOC, collapsible folder tree, and agent table |
+| [response-capture.spec.md](../../specs/response-capture.spec.md) | Response capture convention for saving agent responses to timestamped markdown files |
+| [author-agent.spec.md](../../specs/author-agent.spec.md) | Knowledge authoring agent pattern for creating and maintaining structured content |
+| [advisor-agent.spec.md](../../specs/advisor-agent.spec.md) | Domain advisor agent pattern for answering questions grounded on a structured knowledge base |
 
 ## Quick Start
 
@@ -94,8 +94,7 @@ cp arbitrated-grounding-specs/.github/agents/Spec-Exporter.agent.md \
 
 - [Spec File Format](./spec-format.md) — detailed format reference, variable syntax, examples
 - [FAQ](./faq.md) — common questions about the spec-driven approach
-- [GitHub Copilot Primer](../github-copilot-primer/README.md) — how the agents in this project work
 
 ## References
 
-- This approach was developed in the [agent365-management](../../README.md) project as a way to synchronize Copilot agent patterns across repositories.
+- This approach was developed in the [agent365-management](https://github.com/paulwu/agent365-management) project as a way to synchronize Copilot agent patterns across repositories.
