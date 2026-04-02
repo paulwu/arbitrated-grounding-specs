@@ -20,7 +20,7 @@ This project uses a set of reusable patterns — grounding rules, wizard flows, 
 │  ├── research-agent.spec.md       Fetch/cross-ref/cite      │
 │  ├── doc-architecture.spec.md     notes→docs→scripts layers │
 │  ├── readme-structure.spec.md     TOC, collapsible, agents  │
-│  ├── response-capture.spec.md     Response capture layout   │
+│  ├── answer-capture.spec.md       Response capture layout   │
 │  ├── author-agent.spec.md         Research-curator agent    │
 │  └── advisor-agent.spec.md        Grounded Q&A advisor      │
 │                                                             │
@@ -56,7 +56,7 @@ This project uses a set of reusable patterns — grounding rules, wizard flows, 
 | [research-agent.spec.md](../../specs/research-agent.spec.md) | Research agent with live doc fetching, cross-referencing, and contradiction detection |
 | [doc-architecture.spec.md](../../specs/doc-architecture.spec.md) | Three-layer knowledge → docs → scripts documentation architecture |
 | [readme-structure.spec.md](../../specs/readme-structure.spec.md) | README structure with TOC, collapsible folder tree, and agent table |
-| [response-capture.spec.md](../../specs/response-capture.spec.md) | Response capture convention for saving agent responses to timestamped markdown files |
+| [answer-capture.spec.md](../../specs/answer-capture.spec.md) | Response capture convention for saving agent responses to timestamped markdown files |
 | [author-agent.spec.md](../../specs/author-agent.spec.md) | Knowledge authoring agent pattern for creating and maintaining structured content |
 | [advisor-agent.spec.md](../../specs/advisor-agent.spec.md) | Domain advisor agent pattern for answering questions grounded on a structured knowledge base |
 

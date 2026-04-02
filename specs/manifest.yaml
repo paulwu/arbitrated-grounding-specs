@@ -26,8 +26,8 @@ specs:
     version: "1.0.0"
     description: README structure with TOC, collapsible folder tree, and agent table
 
-  - id: response-capture
-    file: specs/response-capture.spec.md
+  - id: answer-capture
+    file: specs/answer-capture.spec.md
     version: "2.1.0"
     description: Response capture convention for saving agent responses to timestamped markdown files
 

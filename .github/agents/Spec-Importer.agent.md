@@ -44,7 +44,7 @@ curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/
 curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/research-agent.spec.md" -o specs/research-agent.spec.md
 curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/doc-architecture.spec.md" -o specs/doc-architecture.spec.md
 curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/readme-structure.spec.md" -o specs/readme-structure.spec.md
-curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/response-capture.spec.md" -o specs/response-capture.spec.md
+curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/answer-capture.spec.md" -o specs/answer-capture.spec.md
 curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/author-agent.spec.md" -o specs/author-agent.spec.md
 curl -fsSL "https://raw.githubusercontent.com/paulwu/arbitrated-grounding-specs/main/specs/advisor-agent.spec.md" -o specs/advisor-agent.spec.md
 ```
@@ -130,7 +130,7 @@ Display the full spec list from the manifest, grouped by category if the manifes
 │    │                          │          │ architecture          │
 │  6 │ readme-structure         │ v2.0.0   │ README layout        │
 │    │                          │          │ conventions           │
-│  7 │ response-capture         │ v2.0.0   │ Capture folder       │
+│  7 │ answer-capture           │ v2.0.0   │ Capture folder       │
 │    │                          │          │ layout and metadata   │
 │  8 │ author-agent             │ v2.0.0   │ Research-curator     │
 │    │                          │          │ agent pattern         │

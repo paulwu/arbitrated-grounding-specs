@@ -58,7 +58,7 @@ The pattern ensures that AI-generated content is not only "grounded" in data but
 | [`research-agent`](specs/research-agent.spec.md) | Research agent with live doc fetching, cross-referencing, and contradiction detection |
 | [`doc-architecture`](specs/doc-architecture.spec.md) | Three-layer knowledge → docs → scripts documentation architecture |
 | [`readme-structure`](specs/readme-structure.spec.md) | README structure with TOC, collapsible folder tree, and agent table |
-| [`response-capture`](specs/response-capture.spec.md) | Response capture convention for saving agent responses to timestamped markdown files |
+| [`answer-capture`](specs/answer-capture.spec.md) | Response capture convention for saving agent responses to timestamped markdown files |
 | [`author-agent`](specs/author-agent.spec.md) | Knowledge authoring agent pattern for creating and maintaining structured content |
 | [`advisor-agent`](specs/advisor-agent.spec.md) | Domain advisor agent pattern for answering questions grounded on a structured knowledge base |
 

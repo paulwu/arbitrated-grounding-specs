@@ -4,7 +4,7 @@ version: "2.0.0"
 description: Domain advisor agent pattern for answering questions grounded on a structured knowledge base
 extracted_from: paulwu/azure-rbac-advisor
 requires:
-  - response-capture
+  - answer-capture
 variables:
   - name: ADVISOR_AGENT_NAME
     description: "Name of the advisor agent"

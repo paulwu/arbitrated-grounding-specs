@@ -6,7 +6,7 @@ extracted_from: paulwu/agent365-management
 requires:
   - grounding-rules
   - research-conventions
-  - response-capture
+  - answer-capture
 variables:
   - name: RESEARCH_AGENT_NAME
     description: "Name of the research agent"

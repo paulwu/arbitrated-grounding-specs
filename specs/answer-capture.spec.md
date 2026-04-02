@@ -1,5 +1,5 @@
 ---
-spec: response-capture
+spec: answer-capture
 version: "2.1.0"
 description: Response capture convention for saving agent responses to timestamped markdown files
 extracted_from: paulwu/agent365-management

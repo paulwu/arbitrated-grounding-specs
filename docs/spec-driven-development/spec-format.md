@@ -104,8 +104,8 @@ specs:
     version: "2.0.0"
     description: README structure with TOC, collapsible sections, and agent table
 
-  - id: response-capture
-    file: specs/response-capture.spec.md
+  - id: answer-capture
+    file: specs/answer-capture.spec.md
     version: "2.0.0"
     description: Response capture conventions — folder layout, filename format, metadata headers
 
