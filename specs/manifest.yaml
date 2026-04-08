@@ -8,12 +8,12 @@ specs:
 
   - id: grounding-rules
     file: specs/grounding-rules.spec.md
-    version: "2.0.0"
+    version: "2.1.0"
     description: Source priority hierarchy, contradiction detection, and citation format
 
   - id: research-conventions
     file: specs/research-conventions.spec.md
-    version: "2.0.0"
+    version: "2.1.0"
     description: YAML frontmatter format and priority scale for knowledge notes
 
   - id: doc-architecture
@@ -26,8 +26,8 @@ specs:
     version: "1.0.0"
     description: README structure with TOC, collapsible folder tree, and agent table
 
-  - id: answer-capture
-    file: specs/answer-capture.spec.md
+  - id: response-capture
+    file: specs/response-capture.spec.md
     version: "2.1.0"
     description: Response capture convention for saving agent responses to timestamped markdown files
 
@@ -45,8 +45,9 @@ specs:
 
   - id: advisor-agent
     file: specs/advisor-agent.spec.md
-    version: "2.0.0"
+    version: "2.1.0"
     description: Domain advisor agent pattern for answering questions grounded on a structured knowledge base
+    requires: [grounding-rules]
 
   - id: wizard-agent
     file: specs/wizard-agent.spec.md

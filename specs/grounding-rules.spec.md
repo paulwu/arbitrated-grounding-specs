@@ -1,6 +1,6 @@
 ---
 spec: grounding-rules
-version: "2.0.0"
+version: "2.1.0"
 description: Source priority hierarchy, contradiction detection, and citation format for knowledge-base repositories
 extracted_from: paulwu/agent365-management
 requires: []
@@ -30,6 +30,11 @@ variables:
     description: "Folder containing generated documentation"
     required: false
     default: "docs"
+  - name: CORRECTIONS_FILE
+    description: "Path to a corrections/overrides file containing factual corrections, deprecated replacements, and pinned values. When defined, corrections sit between the live primary source and the cached baseline in the hierarchy."
+    required: false
+    default: ""
+    example: ".override-rules/corrections.md"
 ---
 
 # Grounding Rules Spec
@@ -41,9 +46,12 @@ variables:
 All factual answers must follow this priority order:
 
 1. **Live content** from `{{PRIMARY_SOURCE_URL}}` — always the highest-authority source
-2. **Cached baseline** in `{{CACHED_BASELINE_FILE}}` — use when live fetches are unavailable
-3. **Secondary research notes** in `{{KNOWLEDGE_FOLDER}}/` ({{SECONDARY_NOTE_FILES}}) — supporting context only
-4. **Generated docs** in `{{DOCS_FOLDER}}/` — treat as output, NOT as a factual source of truth
+2. **Corrections** from `{{CORRECTIONS_FILE}}` (if defined) — human-authored factual overrides, deprecated replacements, and pinned values that take precedence over all cached and note content
+3. **Cached baseline** in `{{CACHED_BASELINE_FILE}}` — use when live fetches are unavailable
+4. **Secondary research notes** in `{{KNOWLEDGE_FOLDER}}/` ({{SECONDARY_NOTE_FILES}}) — supporting context only
+5. **Generated docs** in `{{DOCS_FOLDER}}/` — treat as output, NOT as a factual source of truth
+
+If `{{CORRECTIONS_FILE}}` is not defined, skip tier 2 and proceed with the remaining tiers.
 
 ### Contradiction Detection
 

@@ -44,6 +44,72 @@ Run `@spec-drift` — it compares your project's current files against the specs
 - What's different (with diffs)
 - Whether the divergence is intentional (project-specific override) or accidental (drift)
 
+## Applying Spec Updates to Your Project
+
+### How do I know when specs have been updated?
+
+Run `@spec-drift` — it compares your project's `spec_version` against the latest manifest and reports any version gap. You can also check the spec repo's commit history or releases.
+
+### How do I apply a spec update?
+
+Re-run `@spec-importer`. When it detects an existing `.spec-config.yaml`, it enters **re-import mode** and walks you through every change:
+
+```
+@spec-importer Re-import specs
+```
+
+The importer handles all types of spec changes automatically — see below.
+
+### What types of spec changes can happen, and how are they handled?
+
+| Change Type | How You'll Know | What the Importer Does |
+|---|---|---|
+| **New variable** | Importer lists new variables with descriptions | Prompts you for a value (shows example and default) |
+| **Changed variable default/description** | Importer shows the before/after | Informational — your existing value is preserved |
+| **Removed variable** | Importer flags it as deprecated | Asks whether to remove from `.spec-config.yaml` |
+| **New dependency** (`requires`) | Importer checks if the required spec is imported | Auto-adds if missing, or asks you to confirm |
+| **New section in generated content** | Importer regenerates files and shows diffs | You review and accept the updated file |
+| **Changed section content** | Importer shows diff between old and new | You review and accept or keep your version |
+| **New artifact/file** | Importer detects referenced files that don't exist | Offers to create a placeholder |
+| **Removed section** | `@spec-drift` flags orphan content in your files | You decide whether to remove the section |
+| **Version bump** | Importer shows semver impact (major/minor/patch) | Updates `spec_version` in `.spec-config.yaml` |
+
+### What do the version numbers mean?
+
+Specs use [semantic versioning](https://semver.org/):
+
+- **Patch** (2.0.0 → 2.0.1): Bug fixes, typo corrections. Safe to re-import without review.
+- **Minor** (2.0.0 → 2.1.0): Additive changes — new variables, new sections, new specs. Non-breaking. Existing behavior is unchanged; you just get new capabilities.
+- **Major** (2.0.0 → 3.0.0): Breaking changes — removed variables, restructured sections, changed semantics. Review the changelog before re-importing.
+
+### What's the full update workflow?
+
+```
+1. Detect   →  @spec-drift          (shows version gap + file diffs)
+2. Review   →  Read the changelog    (understand what changed)
+3. Apply    →  @spec-importer        (re-import handles all change types)
+4. Verify   →  @spec-drift           (confirm everything is clean)
+```
+
+### What if I want to skip some changes?
+
+During re-import, the importer asks for confirmation at each step. You can:
+- Skip new variables (they'll use their default value)
+- Decline to scaffold new artifacts
+- Keep your existing file versions instead of accepting regenerated ones
+- Add items to the `overrides` section of `.spec-config.yaml` to permanently suppress drift warnings for intentional divergences
+
+### What if a spec update conflicts with my project-specific changes?
+
+The importer shows a diff and asks whether to overwrite or keep your version. If you keep yours, `@spec-drift` will flag it as drift on future checks. To silence the warning, add an override to `.spec-config.yaml`:
+
+```yaml
+overrides:
+  grounding-rules:
+    - section: "Source Hierarchy"
+      reason: "Project uses a 3-tier hierarchy without corrections layer"
+```
+
 ## Implementing in Other Projects
 
 ### How do I apply specs to a new project?

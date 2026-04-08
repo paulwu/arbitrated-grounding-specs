@@ -1,10 +1,11 @@
 ---
 spec: advisor-agent
-version: "2.0.0"
+version: "2.1.0"
 description: Domain advisor agent pattern for answering questions grounded on a structured knowledge base
 extracted_from: paulwu/azure-rbac-advisor
 requires:
-  - answer-capture
+  - grounding-rules
+  - response-capture
 variables:
   - name: ADVISOR_AGENT_NAME
     description: "Name of the advisor agent"
@@ -31,10 +32,10 @@ variables:
     required: false
     default: "log"
   - name: CORRECTIONS_FILE
-    description: "Path to a corrections/overrides file that takes precedence over generated content"
+    description: "Inherited from grounding-rules. Path to a corrections/overrides file. See grounding-rules spec for hierarchy details."
     required: false
     default: ""
-    example: ".advisor-rules/corrections.md"
+    example: ".override-rules/corrections.md"
 ---
 
 # Advisor Agent Spec
@@ -89,12 +90,14 @@ Every answer must be saved automatically:
 
 ### Corrections and Overrides
 
-If `{{CORRECTIONS_FILE}}` is defined, the advisor must:
+This spec uses the corrections layer defined in the **grounding-rules** spec. If `{{CORRECTIONS_FILE}}` is defined (inherited from grounding-rules), the advisor must:
 
 1. Read the corrections file before generating any answer
 2. Apply factual overrides, deprecated command replacements, and pinned values
-3. Corrections take precedence over knowledge base content and agent knowledge
+3. Corrections take precedence over knowledge base content and agent knowledge (per the grounding-rules source hierarchy)
 4. Protected/locked content in the knowledge base takes precedence over corrections
+
+See `grounding-rules.spec.md` for the full source hierarchy and contradiction detection rules.
 
 ### Agent Profile Template
 

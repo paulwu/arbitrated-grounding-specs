@@ -108,6 +108,16 @@ The importer collects your project-specific values (URLs, folder names, agent na
 @spec-drift Compare this project against its imported specs
 ```
 
+### 4. Apply spec updates
+
+When specs are updated, re-run the importer — it detects all changes (new variables, changed content, new dependencies, new artifacts) and walks you through each one:
+
+```
+@spec-importer Re-import specs
+```
+
+See [Spec Update Lifecycle](docs/spec-driven-development/README.md#spec-update-lifecycle) for the full detect → review → apply → verify workflow.
+
 ## Projects Using These Specs
 
 | Project | Specs Imported |

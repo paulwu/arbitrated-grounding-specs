@@ -79,9 +79,177 @@ Look for `.spec-config.yaml` in the project root:
 cat .spec-config.yaml 2>/dev/null || echo "NO_CONFIG"
 ```
 
-**If found:** Use the existing variable values. Show them to the user and ask if they want to update any.
+**If found:** This is a **re-import** (spec update). Proceed to Step 2a to detect what changed.
 
-**If not found:** Create one interactively by collecting values in Steps 3-4.
+**If not found:** This is a **first-time import**. Create one interactively by collecting values in Steps 3-4.
+
+### Step 2a — Detect Spec Changes (Re-import Mode)
+
+When `.spec-config.yaml` already exists, the importer must detect and handle ALL types of changes between the previously imported spec versions and the current specs. This step runs before variable collection and file generation.
+
+#### 2a.1 — Version comparison
+
+Compare `spec_version` in `.spec-config.yaml` against the `version` in the downloaded `manifest.yaml`:
+
+```
+Spec version check:
+  Your config:  2.0.0
+  Latest specs: 2.1.0  ← UPDATE AVAILABLE
+
+  Semver guidance:
+    • Patch (2.0.x → 2.0.1): Bug fixes only. Safe to re-import.
+    • Minor (2.0.0 → 2.1.0): Additive changes (new variables, sections, specs). Non-breaking.
+    • Major (2.0.0 → 3.0.0): Breaking changes. Review changelog before re-importing.
+```
+
+Also compare **per-spec versions** — a spec's version in the manifest against the version that was in place when the project last imported. Show which specific specs changed.
+
+#### 2a.2 — New variables
+
+For each imported spec, compare the variables in the current spec file against the variables in `.spec-config.yaml`:
+
+- **New variable** (in spec but not in config): Prompt the user for a value. Show the variable's `description`, `example`, and `default`.
+- Present all new variables in a batch:
+
+```
+📋 New variables found in updated specs:
+
+  grounding-rules (v2.0.0 → v2.1.0):
+    CORRECTIONS_FILE
+      Description: Path to a corrections/overrides file
+      Example: .override-rules/corrections.md
+      Default: "" (empty = disabled)
+
+  Enter value for CORRECTIONS_FILE (or press Enter for default):
+```
+
+#### 2a.3 — Changed variable metadata
+
+If a variable's `description`, `default`, or `example` changed but the variable itself already exists in config:
+
+```
+ℹ️  Variable metadata changed:
+
+  CORRECTIONS_FILE (grounding-rules):
+    Description was: "Path to a corrections/overrides file that takes precedence over generated content"
+    Description now: "Path to a corrections/overrides file containing factual corrections..."
+    Your current value: ".advisor-rules/corrections.md"
+
+  No action needed unless you want to update your value.
+```
+
+#### 2a.4 — Removed or deprecated variables
+
+If a variable exists in `.spec-config.yaml` but is no longer defined in any imported spec:
+
+```
+⚠️  Deprecated variables (no longer in specs):
+
+  OLD_VARIABLE_NAME — was in grounding-rules v2.0.0, removed in v2.1.0
+    Your value: "some-value"
+    → Safe to remove from .spec-config.yaml
+
+  Remove deprecated variables from config? (yes / no)
+```
+
+#### 2a.5 — New dependencies
+
+If a spec added a new `requires` entry, check whether the required spec is already imported:
+
+```
+⚠️  New dependency detected:
+
+  advisor-agent (v2.1.0) now requires: grounding-rules
+    ✅ grounding-rules is already imported — no action needed
+
+  research-agent (v2.1.0) now requires: new-spec
+    ❌ new-spec is NOT imported
+    → Add new-spec to your imports? (yes / no)
+```
+
+#### 2a.6 — New artifacts to scaffold
+
+If a spec update introduces references to files or folders that don't exist in the project (detected from variable examples and spec content), offer to create placeholders:
+
+```
+📁 New artifacts referenced by updated specs:
+
+  .override-rules/corrections.md
+    Referenced by: CORRECTIONS_FILE (grounding-rules v2.1.0)
+    Your value: ".override-rules/corrections.md"
+    File does not exist yet.
+
+  Create placeholder? (yes / no)
+```
+
+When creating a placeholder corrections file, generate a template with section headings and usage guidance:
+
+```markdown
+# Corrections and Overrides
+
+<!--
+  This file contains factual corrections, deprecated command replacements,
+  and pinned values that take precedence over knowledge base content.
+
+  Corrections are applied by any agent that implements the grounding-rules spec.
+  See: specs/grounding-rules.spec.md (Source Hierarchy, tier 2)
+
+  Priority: Corrections sit between live primary source (tier 1) and
+  cached baseline (tier 3) in the grounding-rules hierarchy.
+-->
+
+## How to Use This File
+
+Each correction is a heading + body describing what to override.
+Agents read this file before answering and apply matching corrections.
+
+**Correction types:**
+- **Factual correction** — a value or statement in the knowledge base is outdated or wrong
+- **Deprecated replacement** — a command, API, or term has been replaced
+- **Pinned value** — a value that must always be used exactly as written
+- **Terminology correction** — a preferred term that replaces a deprecated one
+
+---
+
+## Factual Corrections
+
+(No factual corrections yet.)
+
+## Deprecated Replacements
+
+(No deprecated replacements yet.)
+
+## Pinned Values
+
+(No pinned values yet.)
+
+## Terminology Corrections
+
+(No terminology corrections yet.)
+```
+
+#### 2a.7 — Summary and confirmation
+
+After detecting all changes, present a unified summary before proceeding:
+
+```
+Spec Update Summary
+═══════════════════════════════════════════
+Version: 2.0.0 → 2.1.0
+
+  Changes detected:
+    📋 2 new variables to collect
+    ℹ️  1 variable description updated
+    ⚠️  1 deprecated variable to remove
+    🔗 1 new dependency (already satisfied)
+    📁 1 new artifact to scaffold
+
+  Proceed with re-import? (yes / review each / abort)
+```
+
+- **yes** — apply all changes, prompt for new variable values, then continue to Step 3
+- **review each** — walk through each change category interactively
+- **abort** — stop without making changes
 
 ### Step 3 — Select Specs to Import
 
@@ -202,6 +370,26 @@ For each selected spec, read its `variables` section and collect values from the
 
 If a variable has a `default`, offer it. If a variable appears in multiple specs (e.g., `PRIMARY_SOURCE_URL`), collect it once and reuse.
 
+#### Abort point — Pre-write confirmation
+
+After collecting all variable values (and before any files are written), show a summary of what will happen:
+
+```
+📋 Ready to generate files. Here's what will happen:
+
+  Variables collected: 8
+  Files to create:    3 (new)
+  Files to update:    2 (will show diffs)
+  Artifacts to scaffold: 1
+
+  ⚠️  No files have been modified yet.
+
+  Proceed? (yes / abort)
+```
+
+- **yes** — continue to Step 5
+- **abort** — stop. No files are changed, no config is saved.
+
 ### Step 5 — Generate Project Files
 
 Based on the selected specs, generate or update:
@@ -220,8 +408,16 @@ Based on the selected specs, generate or update:
 **For each file:**
 1. Read the spec's template sections
 2. Replace all `{{VARIABLE}}` placeholders with the collected values
-3. If the file already exists, show a diff and ask if the user wants to overwrite or merge
+3. If the file already exists, show a diff and ask: **overwrite / skip / abort all**
 4. If the file doesn't exist, create it
+
+The **abort all** option stops file generation immediately. Files already written in this step remain on disk but are uncommitted — the user can revert with `git checkout .` if needed. Mention this in the abort message:
+
+```
+🛑 Aborted. Some files may have already been written.
+   To revert all changes: git checkout .
+   To review what changed: git diff
+```
 
 #### Always Generate: `docs/spec-driven-development.md`
 
@@ -284,17 +480,43 @@ Copy these files (if they exist in the spec repo):
 
 ### Step 6 — Save Config
 
-Generate `.spec-config.yaml` with the selected specs and collected values:
+Generate or update `.spec-config.yaml` with the selected specs and collected values:
 
 ```yaml
 spec_repo: <from manifest or user input>
-spec_version: "<manifest version>"
+spec_version: "<latest manifest version>"
 imported_at: "<current ISO timestamp>"
 imports:
-  - <selected spec ids>
+  - <selected spec ids with drift_mode>
 variables:
   VARIABLE_NAME: "value"
+overrides:
+  <any existing overrides preserved>
 ```
+
+**During re-import:**
+- Bump `spec_version` to match the latest manifest version
+- Update `imported_at` to the current timestamp
+- Add new variables collected in Step 2a
+- Remove deprecated variables (if user confirmed in Step 2a.4)
+- Preserve existing `overrides` and `drift_mode` settings
+- Add any new specs imported (from dependency resolution)
+
+#### Abort point — Final confirmation before config save
+
+Before writing `.spec-config.yaml`, show the config diff and confirm:
+
+```
+📋 About to update .spec-config.yaml:
+  spec_version: "2.0.0" → "2.1.0"
+  New variables: CORRECTIONS_FILE
+  Removed variables: (none)
+
+  Save config? (yes / abort)
+```
+
+- **yes** — save config and proceed to report
+- **abort** — config is NOT saved. File changes from Step 5 remain on disk (revert with `git checkout .`)
 
 ### Step 7 — Report
 

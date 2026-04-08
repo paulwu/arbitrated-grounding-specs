@@ -84,11 +84,59 @@ cp arbitrated-grounding-specs/.github/agents/Spec-Exporter.agent.md \
 @spec-exporter Extract the grounding rules pattern from this project into specs/
 ```
 
+### Updating specs after a new version
+
+```
+# 1. Check for updates
+@spec-drift Compare this project against its imported specs
+
+# 2. Re-import (handles all change types automatically)
+@spec-importer Re-import specs
+
+# 3. Verify the update is clean
+@spec-drift Compare this project against its imported specs
+```
+
 ### Checking for drift
 
 ```
 @spec-drift Compare this project against the specs in ~/arbitrated-grounding-specs/specs/
 ```
+
+## Spec Update Lifecycle
+
+When specs are updated in the spec repo, consuming projects follow a four-step cycle to realize the changes:
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                     Spec Update Lifecycle                         │
+│                                                                  │
+│  ┌──────────┐     ┌──────────┐     ┌──────────┐     ┌─────────┐ │
+│  │ 1.DETECT │────▶│ 2.REVIEW │────▶│ 3.APPLY  │────▶│4.VERIFY │ │
+│  │          │     │          │     │          │     │         │ │
+│  │@spec-    │     │ Read     │     │@spec-    │     │@spec-   │ │
+│  │ drift    │     │ changelog│     │ importer │     │ drift   │ │
+│  └──────────┘     └──────────┘     └──────────┘     └─────────┘ │
+│       │                                                   │      │
+│       └──────────── Clean? Done! ◄────────────────────────┘      │
+└──────────────────────────────────────────────────────────────────┘
+```
+
+### What the importer handles during re-import
+
+The `@spec-importer` detects ALL types of spec changes when it finds an existing `.spec-config.yaml`:
+
+| Change Type | Detection | Resolution |
+|---|---|---|
+| New variable | Missing from config | Prompts for value |
+| Changed variable metadata | Description/default differs | Informational notice |
+| Removed variable | In config but not in spec | Offers to clean up |
+| New dependency | Spec added a `requires` | Auto-adds or prompts |
+| New/changed sections | Template content differs | Shows diff, asks to accept |
+| New artifact | Referenced file doesn't exist | Offers to scaffold placeholder |
+| Version bump | Config version < manifest | Updates config after re-import |
+
+For the full details on each change type, see the [FAQ — Applying Spec Updates](./faq.md#applying-spec-updates-to-your-project).
 
 ## Further Reading
 

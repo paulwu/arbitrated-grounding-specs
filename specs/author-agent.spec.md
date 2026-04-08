@@ -22,7 +22,7 @@ variables:
     description: "Path to a domain-specific content template file that defines mandatory sections for authored content. Leave empty if content is free-form."
     required: false
     default: ""
-    example: ".advisor-rules/content-template.md"
+    example: ".override-rules/content-template.md"
 ---
 
 # Author Agent Spec

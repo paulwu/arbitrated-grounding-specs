@@ -1,6 +1,6 @@
 ---
 spec: research-conventions
-version: "2.0.0"
+version: "2.1.0"
 description: YAML frontmatter format, priority scale, and authoring rules for research notes
 extracted_from: paulwu/agent365-management
 requires: []
@@ -34,6 +34,7 @@ Priority: <integer, 1 = highest importance, higher = lower importance>
 
 | Priority | Source Type |
 |---|---|
+| 0 | Human-authored corrections and overrides (factual fixes, deprecated replacements, pinned values) |
 | 1 | Reserved — for notes verified against live primary source content in the current session |
 | 2 | Cached primary source documentation (compiled directly but may be stale) |
 | 3 | Other official documentation sources |
