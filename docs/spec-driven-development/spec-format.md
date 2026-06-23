@@ -119,7 +119,25 @@ specs:
     version: "2.1.0"
     description: Advisor agent pattern — grounded Q&A with source-cited synthesis
     requires: [grounding-rules]
+
+# Meta-agents synced into importing projects. @spec-drift compares a project's
+# local agent frontmatter `version` against these to detect stale meta-agents.
+meta_agents:
+  - id: spec-importer
+    file: .github/agents/Spec-Importer.agent.md
+    version: "1.0.0"
+  - id: spec-drift
+    file: .github/agents/Spec-Drift.agent.md
+    version: "1.0.0"
+  - id: spec-exporter
+    file: .github/agents/Spec-Exporter.agent.md
+    version: "1.0.0"
 ```
+
+Each meta-agent file carries a matching `version` in its own YAML frontmatter.
+When you change a meta-agent's behavior, bump both its frontmatter `version` and
+its `meta_agents` entry so `@spec-drift` can detect that consuming projects hold
+an outdated copy.
 
 ## Project Config (`.spec-config.yaml`)
 

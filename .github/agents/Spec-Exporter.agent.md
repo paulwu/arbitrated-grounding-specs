@@ -1,6 +1,7 @@
 ---
 name: Spec-Exporter
 description: Extracts reusable Copilot agent patterns from a project into parameterized spec files. Use to capture and share patterns across repositories.
+version: "1.0.0"
 tools: ["read", "edit", "search", "execute"]
 ---
 

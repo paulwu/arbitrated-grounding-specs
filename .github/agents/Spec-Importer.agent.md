@@ -1,6 +1,7 @@
 ---
 name: Spec-Importer
 description: Applies parameterized spec files to a project — reads specs, collects variable values, and generates/updates copilot-instructions, agent files, and README structure.
+version: "1.0.0"
 tools: ["read", "edit", "search", "execute"]
 ---
 
@@ -481,7 +482,7 @@ Copy these files (if they exist in the spec repo):
 2. `Spec-Drift.agent.md` — always copy (the project needs drift detection)
 3. `Spec-Exporter.agent.md` — **only copy if it already exists in the target project** (most projects don't need the exporter; don't add it automatically)
 
-**Before overwriting**, compare the existing agent file against the spec repo version. If they differ, show the diff and note that this is an upgrade. If they are identical, skip silently.
+**Before overwriting**, compare the existing agent file's frontmatter `version` against the manifest's `meta_agents:` version for that agent (fall back to a content diff if either side has no `version`). If the local version is older or missing, show the diff and note that this is an upgrade. If they are identical, skip silently.
 
 ### Step 6 — Save Config
 
