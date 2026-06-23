@@ -1,7 +1,7 @@
 ---
 name: Spec-Importer
 description: Applies parameterized spec files to a project — reads specs, collects variable values, and generates/updates copilot-instructions, agent files, and README structure.
-version: "1.0.0"
+version: "1.1.0"
 tools: ["read", "edit", "search", "execute"]
 ---
 
@@ -15,9 +15,46 @@ You read spec files from a local `specs/` folder (or a path the user specifies),
 
 ## Workflow
 
+### Mode Selection
+
+Determine the run mode from the user's request **before doing anything else**:
+
+| If the user asks to… | Mode | What runs |
+|---|---|---|
+| import / re-import / apply / scaffold specs | **Full import** (default) | Step 0 → Step 6 |
+| sync / update / pull only the meta-agents — e.g. "sync agents", "update the Spec-* agents, not specs", "update Spec-Drift" | **Agents-only sync** | The *Agents-Only Sync Mode* section below — nothing else |
+
+Only enter **Agents-only sync** when the request is clearly limited to the meta-agent files. When in doubt, ask the user which they want.
+
+### Agents-Only Sync Mode
+
+Use this mode to refresh the `Spec-*` meta-agents **without** downloading specs, collecting variables, or generating any other project files.
+
+1. **Resolve the spec repo** — read `spec_repo` from `.spec-config.yaml`, or default to `paulwu/arbitrated-grounding-specs`. (Reading this value is the only interaction with `.spec-config.yaml` in this mode.)
+2. **Determine the target set:**
+   - Default: `Spec-Importer.agent.md` and `Spec-Drift.agent.md`.
+   - Include `Spec-Exporter.agent.md` **only if it already exists** in the project.
+   - If the user named a specific agent (e.g. "update Spec-Drift"), limit the set to just that file.
+3. **Compare versions before writing** — for each target, compare the local file's frontmatter `version` against the manifest's `meta_agents:` entry (fall back to a content diff if either side lacks a `version`). Skip any file that is already current.
+4. **Download only the out-of-date agents** into `.github/agents/`:
+   ```bash
+   curl -fsSL "https://raw.githubusercontent.com/<owner>/<repo>/main/.github/agents/Spec-Drift.agent.md" -o .github/agents/Spec-Drift.agent.md
+   ```
+5. **Do NOT** download specs or `manifest.yaml` for generation, collect variables, modify `.spec-config.yaml`, or touch any non-agent project files. (You may read the manifest solely to compare meta-agent versions.)
+6. **Report and stop:**
+   ```
+   ✅ Meta-agent sync complete:
+     Spec-Drift.agent.md     v1.0.0 → v1.1.0  (updated)
+     Spec-Importer.agent.md  v1.1.0           (already current — skipped)
+   ```
+
+> This mode is intentionally narrow: it touches only `.github/agents/Spec-*.agent.md`. For spec updates, use the full import flow (Step 0 onward).
+
+---
+
 ### Step 0 — Bootstrap: Download Spec Agents and Spec Files from Spec Repo
 
-Before anything else, ensure the project has the latest spec agents and spec files from the canonical spec repo.
+*(Full import mode.)* Before anything else, ensure the project has the latest spec agents and spec files from the canonical spec repo.
 
 Read the spec repo URL from `.spec-config.yaml` (if it exists) or use the default: `paulwu/arbitrated-grounding-specs`.
 
@@ -445,6 +482,7 @@ Patterns like grounding rules, agent flows, and documentation conventions are ma
 | Task | Command |
 |---|---|
 | **Import or re-import specs** | `@spec-importer Import specs from <path-to-specs>` |
+| **Sync meta-agents only (no specs)** | `@spec-importer sync agents` (or name one, e.g. `@spec-importer update Spec-Drift`) |
 | **Check for drift** | `@spec-drift Compare this project against its imported specs` |
 | **Export a new pattern** | `@spec-exporter Extract <pattern> from this project` |
 
