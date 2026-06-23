@@ -8,9 +8,13 @@ Each spec captures a battle-tested component of the pattern (grounding rules, re
 
 ## The Arbitrated Grounding Pattern
 
-Arbitrated Grounding is an architectural pattern for AI agents designed to resolve conflicts between curated insights and official documentation. It moves beyond simple retrieval by introducing a reconciliation loop that ranks information based on source authority and contextual relevance.
+Arbitrated Grounding is an architectural pattern for GitHub Copilot based agents to improve reliability by reconciling discrepancies between curated insights (e.g., human- or machine-authored summaries or inferred context) and official documentation (e.g., authoritative sources such as policies or specifications).
+Unlike simple retrieval-based approaches, it introduces a two-tier reconciliation loop that ensures outputs are both contextually relevant and aligned to authoritative sources:
 
-The pattern ensures that AI-generated content is not only "grounded" in data but is also audited against a human-governed "Sovereign Truth."
+1. Ranks information based on source authority and contextual relevance.
+2. Enforces an override step as a final validation, correcting conflicts between inferred insights and authoritative sources identified in earlier stages.
+
+This pattern ensures that AI-generated content is not only grounded in data, but also continuously validated against a human-governed “Sovereign Truth”—a definitive source of authority for final output alignment.
 
 ### Core Components
 
@@ -58,7 +62,7 @@ The pattern ensures that AI-generated content is not only "grounded" in data but
 | [`research-agent`](specs/research-agent.spec.md) | Research agent with live doc fetching, cross-referencing, and contradiction detection |
 | [`doc-architecture`](specs/doc-architecture.spec.md) | Three-layer knowledge → docs → scripts documentation architecture |
 | [`readme-structure`](specs/readme-structure.spec.md) | README structure with TOC, collapsible folder tree, and agent table |
-| [`answer-capture`](specs/answer-capture.spec.md) | Response capture convention for saving agent responses to timestamped markdown files |
+| [`response-capture`](specs/response-capture.spec.md) | Response capture convention for saving agent responses to timestamped markdown files |
 | [`author-agent`](specs/author-agent.spec.md) | Knowledge authoring agent pattern for creating and maintaining structured content |
 | [`advisor-agent`](specs/advisor-agent.spec.md) | Domain advisor agent pattern for answering questions grounded on a structured knowledge base |
 
@@ -122,7 +126,8 @@ See [Spec Update Lifecycle](docs/spec-driven-development/README.md#spec-update-l
 
 | Project | Specs Imported |
 |---|---|
-| [agent365-management](https://github.com/paulwu/agent365-management) | All 9 specs (reference implementation) |
+| [agent365-management](https://github.com/paulwu/agent365-management) | 8 specs — original source for the core patterns (reference implementation) |
+| [azure-rbac-advisor](https://github.com/paulwu/azure-rbac-advisor) | `advisor-agent` — original source for the domain-advisor pattern |
 
 ## How It Works
 
@@ -149,7 +154,9 @@ Specs flow **into** projects via `@spec-importer`. Pattern improvements flow **b
 
 ## How It Was Built
 
-These specs were extracted from the [agent365-management](https://github.com/paulwu/agent365-management) project — a knowledge base for Microsoft Agent 365 / Entra Agent ID. The patterns (source hierarchies, contradiction detection, wizard flows) evolved through iterative development and were generalized into parameterized specs so any repository can adopt and improve them.
+These specs were extracted from **multiple source projects** — the bulk from [agent365-management](https://github.com/paulwu/agent365-management) (a knowledge base for Microsoft Agent 365 / Entra Agent ID), and the `advisor-agent` pattern from [azure-rbac-advisor](https://github.com/paulwu/azure-rbac-advisor). The patterns (source hierarchies, contradiction detection, wizard flows, domain advisors) evolved through iterative development and were generalized into parameterized specs so any repository can adopt and improve them.
+
+Since extraction, these specs have been used to **refactor the original source projects back into consistency** — closing the feedback loop, so the projects they came from now follow the same generalized patterns as any new adopter.
 
 ## License
 

@@ -1,7 +1,7 @@
 name: arbitrated-grounding-specs
 version: "2.0.0"
 description: Reusable Copilot agent patterns for documentation knowledge bases
-extracted_from: paulwu/agent365-management
+extracted_from: paulwu/agent365-management, paulwu/azure-rbac-advisor
 
 specs:
   # --- Tier 1: Core Specs (universal patterns) ---
@@ -37,11 +37,13 @@ specs:
     file: specs/research-agent.spec.md
     version: "2.0.0"
     description: Research agent pattern with live doc fetching, cross-referencing, and contradiction detection
+    requires: [grounding-rules, research-conventions, response-capture]
 
   - id: author-agent
     file: specs/author-agent.spec.md
     version: "2.0.0"
     description: Knowledge authoring agent pattern for creating and maintaining structured content
+    requires: [research-conventions]
 
   - id: advisor-agent
     file: specs/advisor-agent.spec.md

@@ -76,17 +76,17 @@ description: Reusable Copilot agent patterns for documentation knowledge bases
 specs:
   - id: grounding-rules
     file: specs/grounding-rules.spec.md
-    version: "2.0.0"
+    version: "2.1.0"
     description: Source priority hierarchy and contradiction detection
 
   - id: research-conventions
     file: specs/research-conventions.spec.md
-    version: "2.0.0"
+    version: "2.1.0"
     description: YAML frontmatter format and priority scale for research notes
 
   - id: wizard-agent
     file: specs/wizard-agent.spec.md
-    version: "2.0.0"
+    version: "1.1.0"
     description: Interactive wizard agent pattern with prerequisite checks
 
   - id: research-agent
@@ -101,12 +101,12 @@ specs:
 
   - id: readme-structure
     file: specs/readme-structure.spec.md
-    version: "2.0.0"
+    version: "1.0.0"
     description: README structure with TOC, collapsible sections, and agent table
 
-  - id: answer-capture
-    file: specs/answer-capture.spec.md
-    version: "2.0.0"
+  - id: response-capture
+    file: specs/response-capture.spec.md
+    version: "2.1.0"
     description: Response capture conventions — folder layout, filename format, metadata headers
 
   - id: author-agent
@@ -116,8 +116,9 @@ specs:
 
   - id: advisor-agent
     file: specs/advisor-agent.spec.md
-    version: "2.0.0"
+    version: "2.1.0"
     description: Advisor agent pattern — grounded Q&A with source-cited synthesis
+    requires: [grounding-rules]
 ```
 
 ## Project Config (`.spec-config.yaml`)

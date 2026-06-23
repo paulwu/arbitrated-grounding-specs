@@ -6,7 +6,7 @@ extracted_from: paulwu/agent365-management
 requires:
   - grounding-rules
   - research-conventions
-  - answer-capture
+  - response-capture
 variables:
   - name: RESEARCH_AGENT_NAME
     description: "Name of the research agent"
@@ -41,6 +41,10 @@ variables:
     description: "Folder containing automation scripts to reference"
     required: false
     default: "scripts"
+  - name: KNOWLEDGE_FOLDER
+    description: "Folder containing knowledge notes (research, cached docs, etc.)"
+    required: false
+    default: "grounding"
 ---
 
 # Research Agent Spec
@@ -56,7 +60,7 @@ The research agent follows this workflow for every question:
 3. **Check other note files** in `{{KNOWLEDGE_FOLDER}}/` ({{SECONDARY_NOTE_FILES}}) for additional context
 4. **Flag contradictions** between sources (see grounding-rules spec)
 5. **Reference repository scripts** in `{{SCRIPTS_FOLDER}}/` when a workflow can be expedited with existing automation
-6. **Save every response** to `{{RESPONSE_CAPTURE_FOLDER}}/`
+6. **Save every response** to `{{RESPONSE_FOLDER}}/`
 
 ### Script References
 

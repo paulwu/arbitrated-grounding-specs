@@ -8,40 +8,40 @@ This project uses a set of reusable patterns — grounding rules, wizard flows, 
 
 ## How It Works
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│                    arbitrated-grounding-specs/                    │
-│                    (dedicated spec repo)                     │
-│                                                             │
-│  specs/                                                     │
-│  ├── grounding-rules.spec.md      Source hierarchy rules    │
+```text
+┌────────────────────────────────────────────────────────────────┐
+│                    arbitrated-grounding-specs/                 │
+│                    (dedicated spec repo)                       │
+│                                                                │
+│  specs/                                                        │
+│  ├── grounding-rules.spec.md      Source hierarchy rules       │
 │  ├── research-conventions.spec.md Research frontmatter/priority│
-│  ├── wizard-agent.spec.md         Prerequisite/wizard flow  │
-│  ├── research-agent.spec.md       Fetch/cross-ref/cite      │
-│  ├── doc-architecture.spec.md     notes→docs→scripts layers │
-│  ├── readme-structure.spec.md     TOC, collapsible, agents  │
-│  ├── answer-capture.spec.md       Response capture layout   │
-│  ├── author-agent.spec.md         Research-curator agent    │
-│  └── advisor-agent.spec.md        Grounded Q&A advisor      │
-│                                                             │
-│  .github/agents/                                            │
-│  ├── Spec-Exporter.agent.md       Extracts patterns → specs │
-│  ├── Spec-Importer.agent.md       Applies specs → project   │
-│  └── Spec-Drift.agent.md          Compares project vs specs │
-│                                                             │
-│  manifest.yaml                    Version, spec index       │
-└──────────────┬──────────────────────────┬───────────────────┘
+│  ├── wizard-agent.spec.md         Prerequisite/wizard flow     │
+│  ├── research-agent.spec.md       Fetch/cross-ref/cite         │
+│  ├── doc-architecture.spec.md     notes→docs→scripts layers    │
+│  ├── readme-structure.spec.md     TOC, collapsible, agents     │
+│  ├── response-capture.spec.md     Response capture layout      │
+│  ├── author-agent.spec.md         Research-curator agent       │
+│  └── advisor-agent.spec.md        Grounded Q&A advisor         │
+│                                                                │
+│  .github/agents/                                               │
+│  ├── Spec-Exporter.agent.md       Extracts patterns → specs    │
+│  ├── Spec-Importer.agent.md       Applies specs → project      │
+│  └── Spec-Drift.agent.md          Compares project vs specs    │
+│                                                                │
+│  manifest.yaml                    Version, spec index          │
+└──────────────┬──────────────────────────┬──────────────────────┘
                │                          │
      ┌─────────▼──────────┐    ┌──────────▼──────────┐
-     │ agent365-management│    │azure-resilience-adv. │
-     │ (imports specs)    │    │(imports specs)        │
-     └────────────────────┘    └──────────────────────┘
+     │ agent365-management│    │ azure-rbac-advisor  │
+     │ (imports specs)    │    │ (imports specs)     │
+     └────────────────────┘    └─────────────────────┘
 ```
 
 ### Three Meta-Agents
 
 | Agent | Purpose |
-|---|---|
+| --- | --- |
 | **`@spec-exporter`** | Reads a project's agent files, copilot-instructions, README, and notes → generates parameterized spec files to a local folder |
 | **`@spec-importer`** | Reads spec files, collects project-specific variable values, and generates/updates project files (copilot-instructions.md, agent files, README structure, framework guide) |
 | **`@spec-drift`** | Compares a project's current state against its imported specs and reports divergences with actionable diffs |
@@ -49,14 +49,14 @@ This project uses a set of reusable patterns — grounding rules, wizard flows, 
 ## Available Specs
 
 | Spec | What It Captures |
-|---|---|
+| --- | --- |
 | [grounding-rules.spec.md](../../specs/grounding-rules.spec.md) | Source priority hierarchy, contradiction detection, and citation format |
 | [research-conventions.spec.md](../../specs/research-conventions.spec.md) | YAML frontmatter format and priority scale for knowledge notes |
 | [wizard-agent.spec.md](../../specs/wizard-agent.spec.md) | Interactive wizard with prerequisite checks, script execution or command handoff |
 | [research-agent.spec.md](../../specs/research-agent.spec.md) | Research agent with live doc fetching, cross-referencing, and contradiction detection |
 | [doc-architecture.spec.md](../../specs/doc-architecture.spec.md) | Three-layer knowledge → docs → scripts documentation architecture |
 | [readme-structure.spec.md](../../specs/readme-structure.spec.md) | README structure with TOC, collapsible folder tree, and agent table |
-| [answer-capture.spec.md](../../specs/answer-capture.spec.md) | Response capture convention for saving agent responses to timestamped markdown files |
+| [response-capture.spec.md](../../specs/response-capture.spec.md) | Response capture convention for saving agent responses to timestamped markdown files |
 | [author-agent.spec.md](../../specs/author-agent.spec.md) | Knowledge authoring agent pattern for creating and maintaining structured content |
 | [advisor-agent.spec.md](../../specs/advisor-agent.spec.md) | Domain advisor agent pattern for answering questions grounded on a structured knowledge base |
 
@@ -86,7 +86,7 @@ cp arbitrated-grounding-specs/.github/agents/Spec-Exporter.agent.md \
 
 ### Updating specs after a new version
 
-```
+```text
 # 1. Check for updates
 @spec-drift Compare this project against its imported specs
 
@@ -99,7 +99,7 @@ cp arbitrated-grounding-specs/.github/agents/Spec-Exporter.agent.md \
 
 ### Checking for drift
 
-```
+```text
 @spec-drift Compare this project against the specs in ~/arbitrated-grounding-specs/specs/
 ```
 
@@ -107,16 +107,16 @@ cp arbitrated-grounding-specs/.github/agents/Spec-Exporter.agent.md \
 
 When specs are updated in the spec repo, consuming projects follow a four-step cycle to realize the changes:
 
-```
+```text
 ┌──────────────────────────────────────────────────────────────────┐
-│                     Spec Update Lifecycle                         │
+│                     Spec Update Lifecycle                        │
 │                                                                  │
-│  ┌──────────┐     ┌──────────┐     ┌──────────┐     ┌─────────┐ │
-│  │ 1.DETECT │────▶│ 2.REVIEW │────▶│ 3.APPLY  │────▶│4.VERIFY │ │
-│  │          │     │          │     │          │     │         │ │
-│  │@spec-    │     │ Read     │     │@spec-    │     │@spec-   │ │
-│  │ drift    │     │ changelog│     │ importer │     │ drift   │ │
-│  └──────────┘     └──────────┘     └──────────┘     └─────────┘ │
+│  ┌──────────┐     ┌──────────┐     ┌──────────┐     ┌─────────┐  │
+│  │ 1.DETECT │────>│ 2.REVIEW │────>│ 3.APPLY  │────>│4.VERIFY │  │
+│  │          │     │          │     │          │     │         │  │
+│  │@spec-    │     │ Read     │     │@spec-    │     │@spec-   │  │
+│  │ drift    │     │ changelog│     │ importer │     │ drift   │  │
+│  └──────────┘     └──────────┘     └──────────┘     └─────────┘  │
 │       │                                                   │      │
 │       └──────────── Clean? Done! ◄────────────────────────┘      │
 └──────────────────────────────────────────────────────────────────┘
@@ -127,7 +127,7 @@ When specs are updated in the spec repo, consuming projects follow a four-step c
 The `@spec-importer` detects ALL types of spec changes when it finds an existing `.spec-config.yaml`:
 
 | Change Type | Detection | Resolution |
-|---|---|---|
+| --- | --- | --- |
 | New variable | Missing from config | Prompts for value |
 | Changed variable metadata | Description/default differs | Informational notice |
 | Removed variable | In config but not in spec | Offers to clean up |

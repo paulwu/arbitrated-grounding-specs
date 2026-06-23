@@ -1,5 +1,5 @@
 ---
-spec: answer-capture
+spec: response-capture
 version: "2.1.0"
 description: Response capture convention for saving agent responses to timestamped markdown files
 extracted_from: paulwu/agent365-management
@@ -20,9 +20,13 @@ variables:
     required: false
     default: "answer"
     example: "answer"
+  - name: KNOWLEDGE_FOLDER
+    description: "Folder containing knowledge notes (used when citing note sources)"
+    required: false
+    default: "grounding"
 ---
 
-# Answer Capture Spec
+# Response Capture Spec
 
 ## Pattern
 

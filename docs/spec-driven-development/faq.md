@@ -10,9 +10,9 @@ A spec is a parameterized Markdown file that captures a reusable pattern — lik
 
 Specs live in their own repository (`arbitrated-grounding-specs`). Each project that uses specs imports only the ones it needs. The spec repo also contains the three meta-agents (`@spec-exporter`, `@spec-importer`, `@spec-drift`).
 
-### Will the spec repo be documented in this project?
+### Where is the spec framework documented?
 
-Yes. The `docs/spec-driven-development/` folder in this project documents the spec format, available specs, and how they relate to this project's patterns. This serves as both the documentation and the reference implementation since this project (`agent365-management`) is where the patterns were originally developed.
+The `docs/spec-driven-development/` folder in the `arbitrated-grounding-specs` repo documents the spec format, the available specs, and how the import/export/drift workflow operates. The patterns were originally developed in the [`agent365-management`](https://github.com/paulwu/agent365-management) project (with the `advisor-agent` pattern coming from [`azure-rbac-advisor`](https://github.com/paulwu/azure-rbac-advisor)), which serve as the reference implementations.
 
 ## Export and Sync
 
@@ -188,11 +188,14 @@ Depending on which specs are imported:
 | Spec | Files Generated/Updated |
 |---|---|
 | `grounding-rules` | `.github/copilot-instructions.md` (canonical sources section) |
-| `research-conventions` | `.github/agents/Entra-Curator.agent.md` |
+| `research-conventions` | `.github/copilot-instructions.md` (notes frontmatter & priority-scale conventions) |
 | `research-agent` | `.github/agents/<ResearchAgent>.agent.md` |
+| `author-agent` | `.github/agents/<AuthorAgent>.agent.md` |
+| `advisor-agent` | `.github/agents/<AdvisorAgent>.agent.md` |
 | `wizard-agent` | `.github/agents/<WizardAgent>.agent.md` (template) |
-| `doc-architecture` | `.github/copilot-instructions.md` (architecture section), `notes/`, `docs/` folders |
+| `doc-architecture` | `.github/copilot-instructions.md` (architecture section), `<KNOWLEDGE_FOLDER>/`, `<SYNTHESIZED_DOCS_FOLDER>/` folders |
 | `readme-structure` | `README.md` (TOC, agent table, collapsible structure) |
+| `response-capture` | `.github/copilot-instructions.md` (response-capture section) |
 | *(always)* | `docs/spec-driven-development.md` (lightweight framework guide with link to full docs) |
 | *(always)* | `.github/agents/Spec-Importer.agent.md`, `Spec-Drift.agent.md` (synced from spec repo) |
 

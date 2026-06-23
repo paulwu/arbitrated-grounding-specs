@@ -5,7 +5,6 @@ description: Domain advisor agent pattern for answering questions grounded on a 
 extracted_from: paulwu/azure-rbac-advisor
 requires:
   - grounding-rules
-  - response-capture
 variables:
   - name: ADVISOR_AGENT_NAME
     description: "Name of the advisor agent"

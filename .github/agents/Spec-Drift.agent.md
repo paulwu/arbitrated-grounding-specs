@@ -98,7 +98,7 @@ grounding-rules:
        → Minor wording change. Update with @spec-importer or add to overrides.
 
 research-conventions:
-  .github/agents/Entra-Curator.agent.md
+  .github/copilot-instructions.md
     ✅ Frontmatter rules — matches spec
     ✅ Priority scale — matches spec
 
